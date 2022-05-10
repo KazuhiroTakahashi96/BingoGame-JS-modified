@@ -174,21 +174,65 @@ class BingoBallNumber {
 
   // ========== リーチ数、ビンゴ数をチェック、出力する関数 ============
   // ===== 縦列のリーチ数をチェックする関数 =====
-  checkReachNum(el) {
+  checkColReachNum(el) {
     let reachNum = 0;
     for (let i = 0; i < bingoCard.cardNumArray_html.length; i++) {
       // true(穴が空いてる)なら
       if (el[i].className === "matchedNum") {
-        console.log("マッチした数字あり");
         reachNum += 1;
       }
     }
-    console.log(reachNum);
     return reachNum === bingoCard.cardNumArray_html.length - 1 ? 1 : 0;
+  }
+  // ===== 横列のリーチ数をチェックする関数 =====
+  checkRowReachNum(array) {
+    let totalRowReachNum = 0;
+    for (let j = 0; j < array.length; j++) {
+      let reachNum = 0;
+      for (let i = 0; i < array.length; i++) {
+        // true(穴が空いてる)なら
+        if (array[i][j].className === "matchedNum") {
+          reachNum += 1;
+        }
+      }
+      reachNum === array.length - 1
+        ? (totalRowReachNum += 1)
+        : (totalRowReachNum += 0);
+    }
+    return totalRowReachNum;
+  }
+  // ===== 斜め列のリーチ数をチェックする関数 =====
+  checkCrossReachNum(array) {
+    let totalCrossReachNum = 0;
+    // 斜め列1のリーチ数
+    let reachNum1 = 0;
+    for (let i = 0; i < array.length; i++) {
+      // true(穴が空いてる)なら
+      if (array[i][i].className === "matchedNum") {
+        reachNum1 += 1;
+      }
+    }
+    reachNum1 === array.length - 1
+      ? (totalCrossReachNum += 1)
+      : (totalCrossReachNum += 0);
+
+    // 斜め列2のリーチ数
+    let reachNum2 = 0;
+    for (let i = 0; i < array.length; i++) {
+      // true(穴が空いてる)なら
+      if (array[i][array.length - 1 - i].className === "matchedNum") {
+        reachNum2 += 1;
+      }
+    }
+    reachNum2 === array.length - 1
+      ? (totalCrossReachNum += 1)
+      : (totalCrossReachNum += 0);
+
+    return totalCrossReachNum;
   }
 
   // ===== 縦列のビンゴ数をチェックする関数 =====
-  checkBingoNum(el) {
+  checkColBingoNum(el) {
     let bingoNum = 0;
     for (let i = 0; i < bingoCard.cardNumArray_html.length; i++) {
       // true(穴が空いてる)なら
@@ -198,6 +242,52 @@ class BingoBallNumber {
     }
     return bingoNum === bingoCard.cardNumArray_html.length ? 1 : 0;
   }
+  // ===== 横列のビンゴ数をチェックする関数 =====
+  checkRowBingoNum(array) {
+    let totalRowBingohNum = 0;
+    for (let j = 0; j < array.length; j++) {
+      let reachNum = 0;
+      for (let i = 0; i < array.length; i++) {
+        // true(穴が空いてる)なら
+        if (array[i][j].className === "matchedNum") {
+          reachNum += 1;
+        }
+      }
+      reachNum === array.length
+        ? (totalRowBingohNum += 1)
+        : (totalRowBingohNum += 0);
+    }
+    return totalRowBingohNum;
+  }
+  // ===== 斜め列のビンゴ数をチェックする関数 =====
+  checkCrossBingoNum(array) {
+    let totalCrossBingoNum = 0;
+    // 斜め列1のリーチ数
+    let reachNum1 = 0;
+    for (let i = 0; i < array.length; i++) {
+      // true(穴が空いてる)なら
+      if (array[i][i].className === "matchedNum") {
+        reachNum1 += 1;
+      }
+    }
+    reachNum1 === array.length
+      ? (totalCrossBingoNum += 1)
+      : (totalCrossBingoNum += 0);
+
+    // 斜め列2のリーチ数
+    let reachNum2 = 0;
+    for (let i = 0; i < array.length; i++) {
+      // true(穴が空いてる)なら
+      if (array[i][array.length - 1 - i].className === "matchedNum") {
+        reachNum2 += 1;
+      }
+    }
+    reachNum2 === array.length
+      ? (totalCrossBingoNum += 1)
+      : (totalCrossBingoNum += 0);
+
+    return totalCrossBingoNum;
+  }
 
   // ===== 画面に出力する関数 =====
   showReachBing() {
@@ -205,14 +295,23 @@ class BingoBallNumber {
     let totalReachNumber = 0;
     for (let i = 0; i < bingoCard.cardNumArray_html.length; i++) {
       // 縦列のチェック
-      totalReachNumber += this.checkReachNum(bingoCard.cardNumArray_html[i]);
+      totalReachNumber += this.checkColReachNum(bingoCard.cardNumArray_html[i]);
     }
+    // 横列のチェック
+    totalReachNumber += this.checkRowReachNum(bingoCard.cardNumArray_html);
+    // 斜め列のチェック
+    totalReachNumber += this.checkCrossReachNum(bingoCard.cardNumArray_html);
+
     // ビンゴ数
     let totalBingoNumber = 0;
     for (let i = 0; i < bingoCard.cardNumArray_html.length; i++) {
       // 縦列のチェック
-      totalReachNumber += this.checkBingoNum(bingoCard.cardNumArray_html[i]);
+      totalReachNumber += this.checkColBingoNum(bingoCard.cardNumArray_html[i]);
     }
+    // 横列のチェック
+    totalBingoNumber += this.checkRowBingoNum(bingoCard.cardNumArray_html);
+    // 斜め列のチェック
+    totalReachNumber += this.checkCrossBingoNum(bingoCard.cardNumArray_html);
 
     reachNum.innerHTML = totalReachNumber;
     bingoNum.innerHTML = totalBingoNumber;
