@@ -1,0 +1,70 @@
+* {
+  margin: 0 auto;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  text-align: center;
+}
+
+header {
+  font-size: 25px;
+  margin: 50px;
+  font-weight: bold;
+}
+
+.container {
+  display: flex;
+  justify-content: space-evenly;
+}
+.table-div {
+  width: 30vw;
+  margin: 0 30px;
+}
+table {
+  width: 80%;
+  height: 300px;
+  font-size: 20px;
+}
+
+th {
+  padding-bottom: 5px;
+}
+td {
+  padding: 15px;
+}
+
+span {
+  font-size: 25px;
+  font-weight: bold;
+}
+
+#reach-num,
+#bingo-num,
+#ball-num,
+#end {
+  font-size: 30px;
+  font-weight: bold;
+}
+
+.btn {
+  margin-top: 40px;
+}
+.btn > input {
+  width: 100px;
+  height: 40px;
+  border: 1px solid black;
+  border-radius: 10px;
+  cursor: pointer;
+  margin: 10px 10px;
+}
+
+[aria-checked="true"] {
+  background-color: gold;
+  border-radius: 20px 20px 0 0;
+}
+
+.hide {
+  display: none;
+}

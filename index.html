@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Bingo Game</title>
+  </head>
+  <body>
+    <header>BINGO GAME</header>
+
+    <div class="container">
+      <div class="table-div">
+        <table>
+          <thead>
+            <tr>
+              <th>B</th>
+              <th>I</th>
+              <th>N</th>
+              <th>G</th>
+              <th>O</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <!-- aria-checkedについて -->
+            <!-- https://developer.mozilla.org/ja/docs/Web/Accessibility/ARIA/Roles/checkbox_role -->
+            <tr>
+              <td class="row-1 col-B cross1" aria-checked="false"></td>
+              <td class="row-1 col-I" aria-checked="false"></td>
+              <td class="row-1 col-N" aria-checked="false"></td>
+              <td class="row-1 col-G" aria-checked="false"></td>
+              <td class="row-1 col-O" aria-checked="false"></td>
+              <td class="row-1 col-O1" aria-checked="false"></td>
+              <td class="row-1 col-O2 cross2" aria-checked="false"></td>
+            </tr>
+            <tr>
+              <td class="row-2 col-B" aria-checked="false"></td>
+              <td class="row-2 col-I cross1" aria-checked="false"></td>
+              <td class="row-2 col-N" aria-checked="false"></td>
+              <td class="row-2 col-G" aria-checked="false"></td>
+              <td class="row-2 col-O" aria-checked="false"></td>
+              <td class="row-2 col-O1 cross2" aria-checked="false"></td>
+              <td class="row-2 col-O2" aria-checked="false"></td>
+            </tr>
+            <tr>
+              <td class="row-3 col-B" aria-checked="false"></td>
+              <td class="row-3 col-I" aria-checked="false"></td>
+              <td class="row-3 col-N cross1" aria-checked="false"></td>
+              <td class="row-3 col-G" aria-checked="false"></td>
+              <td class="row-3 col-O cross2" aria-checked="false"></td>
+              <td class="row-3 col-O1" aria-checked="false"></td>
+              <td class="row-3 col-O2" aria-checked="false"></td>
+            </tr>
+            <tr>
+              <td class="row-4 col-B" aria-checked="false"></td>
+              <td class="row-4 col-I" aria-checked="false"></td>
+              <td class="row-4 col-N" aria-checked="false"></td>
+              <td class="row-4 col-G cross1 cross2" aria-checked="false"></td>
+              <td class="row-4 col-O" aria-checked="false"></td>
+              <td class="row-4 col-O1 cross1" aria-checked="false"></td>
+              <td class="row-4 col-O2" aria-checked="false"></td>
+            </tr>
+            <tr>
+              <td class="row-5 col-B" aria-checked="false"></td>
+              <td class="row-5 col-I" aria-checked="false"></td>
+              <td class="row-5 col-N cross2" aria-checked="false"></td>
+              <td class="row-5 col-G" aria-checked="false"></td>
+              <td class="row-5 col-O cross1" aria-checked="false"></td>
+              <td class="row-5 col-O1" aria-checked="false"></td>
+              <td class="row-5 col-O2" aria-checked="false"></td>
+            </tr>
+            <tr>
+              <td class="row-6 col-B" aria-checked="false"></td>
+              <td class="row-6 col-I cross2" aria-checked="false"></td>
+              <td class="row-6 col-N" aria-checked="false"></td>
+              <td class="row-6 col-G" aria-checked="false"></td>
+              <td class="row-6 col-O" aria-checked="false"></td>
+              <td class="row-6 col-O1 cross1" aria-checked="false"></td>
+              <td class="row-6 col-O2" aria-checked="false"></td>
+            </tr>
+            <tr>
+              <td class="row-7 col-B cross2" aria-checked="false"></td>
+              <td class="row-7 col-I" aria-checked="false"></td>
+              <td class="row-7 col-N" aria-checked="false"></td>
+              <td class="row-7 col-G" aria-checked="false"></td>
+              <td class="row-7 col-O" aria-checked="false"></td>
+              <td class="row-7 col-O1" aria-checked="false"></td>
+              <td class="row-7 col-O2 cross1" aria-checked="false"></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div>
+        <div>リーチ数</div>
+        <br />
+        <div id="reach-num"></div>
+        <br />
+        <br />
+        <div>ビンゴ数</div>
+        <br />
+        <div id="bingo-num"></div>
+      </div>
+
+      <div>
+        <div><span></span> 個目のボール</div>
+        <br />
+        <div id="ball-num"></div>
+        <br />
+      </div>
+    </div>
+
+    <div class="btn">
+      <input type="button" id="create-btn" value="カード作成" />
+      <input type="button" id="ball-btn" class="hide" value="ボールを引く" />
+      <div id="end"></div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
