@@ -40,6 +40,19 @@ const row_7 = document.querySelectorAll(".row-7");
 const cross1 = document.querySelectorAll(".cross1");
 const cross2 = document.querySelectorAll(".cross2");
 
+// 列数の値を取得
+const inputNum = document.querySelector("#col_Num");
+console.log(inputNum.valueAsNumber);
+
+// form要素の取得
+const form = document.querySelector("#form");
+
+const arr = new Array();
+for (let i = 0; i < 5; i++) {
+  arr[i] = new Array();
+}
+console.log(arr);
+
 // 配列のメソッドについて
 // https://ja.javascript.info/array-methods
 
@@ -177,17 +190,20 @@ class BingoCard {
   constructor() {
     // ビンゴカードの数字を格納する配列
     this.cardNumArray = [];
+
+    // 入力した値の列×列の、二次元配列
+    this.col_row_Array = new Array();
   }
 
   // =========== ビンゴカードの数字を作成する関数 ===========
-  makeRandomNum(plus) {
+  makeRandomNum(plus, col) {
     // 1〜15を持った長さ15の配列の作成
     const array = [];
     for (let i = 1; i <= 15; i++) {
       array.push(i);
     }
 
-    for (let i = 0; i < 7; i++) {
+    for (let i = 0; i < col; i++) {
       // ランダムな値を取得
       const randomNum = Math.floor(Math.random() * array.length);
       this.cardNumArray.push(array[randomNum] + plus);
@@ -198,9 +214,22 @@ class BingoCard {
 
   // =========== 上で作成した数字を出力する関数 ============
   makeBingoCard(col) {
+    console.log(this.col_row_Array);
+    for (let i = 0; i < col; i++) {
+      this.col_row_Array[i] = new Array(col);
+      console.log(this.col_row_Array);
+    }
+
+    for (let i = 0; i < col; i++) {
+      for (let k = 0; k < col; k++) {
+        this.col_row_Array[i][k] = i * k;
+      }
+    }
+    console.table(this.col_row_Array);
+
     // カードの各列に入るランダムな数字を作る
     for (let i = 0; i < col; i++) {
-      this.makeRandomNum(i * 15);
+      this.makeRandomNum(i * 15, col);
     }
 
     // 数字を画面に出力
@@ -222,8 +251,12 @@ const bingoCard = new BingoCard();
 //======================== クリックイベント ========================
 // ========= ビンゴカード作成ボタン =========
 createBtn.addEventListener("click", () => {
+  // 列数の値（5〜13のどれか）を変数に格納して、makeBingoCardの引数に挿入
+  const col_row_num = inputNum.valueAsNumber;
+
   bingoCard.makeBingoCard(7);
 
+  form.classList.add("hide");
   createBtn.classList.add("hide");
   ballBtn.classList.remove("hide");
 });

@@ -59,6 +59,10 @@ span {
   cursor: pointer;
   margin: 10px 10px;
 }
+#col_Num {
+  text-align: center;
+  font-size: 15px;
+}
 
 [aria-checked="true"] {
   background-color: gold;
