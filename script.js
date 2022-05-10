@@ -3,55 +3,22 @@ const reachNum = document.querySelector("#reach-num");
 const bingoNum = document.querySelector("#bingo-num");
 const ballNum = document.querySelector("#ball-num");
 const span = document.querySelector("span");
-const end = document.querySelector("#end");
 
 // ボタン取得
 const createBtn = document.querySelector("#create-btn");
 const ballBtn = document.querySelector("#ball-btn");
 
-// B, I, N, G, O 列の取得（縦列）
-const col_B = document.querySelectorAll(".col-B");
-const col_I = document.querySelectorAll(".col-I");
-const col_N = document.querySelectorAll(".col-N");
-const col_G = document.querySelectorAll(".col-G");
-const col_O = document.querySelectorAll(".col-O");
-const col_O1 = document.querySelectorAll(".col-O1");
-const col_O2 = document.querySelectorAll(".col-O2");
-const col_BINGO = [
-  ...col_B,
-  ...col_I,
-  ...col_N,
-  ...col_G,
-  ...col_O,
-  ...col_O1,
-  ...col_O2,
-];
-
-// 横列の取得
-const row_1 = document.querySelectorAll(".row-1");
-const row_2 = document.querySelectorAll(".row-2");
-const row_3 = document.querySelectorAll(".row-3");
-const row_4 = document.querySelectorAll(".row-4");
-const row_5 = document.querySelectorAll(".row-5");
-const row_6 = document.querySelectorAll(".row-6");
-const row_7 = document.querySelectorAll(".row-7");
-
-// 対角線の取得
-const cross1 = document.querySelectorAll(".cross1");
-const cross2 = document.querySelectorAll(".cross2");
-
 // 列数の値を取得
 const inputNum = document.querySelector("#col_Num");
-console.log(inputNum.valueAsNumber);
 
 // form要素の取得
 const form = document.querySelector("#form");
 
-const arr = new Array();
-for (let i = 0; i < 5; i++) {
-  arr[i] = new Array();
-}
-console.log(arr);
+// ビンゴカードを表示する要素の取得
+const bingoCard_div = document.querySelector(".bingoCard-num");
+
+// 引いた数字やリーチ数などを表示するdiv
+const number_div = document.querySelector(".number-div");
 
 // 配列のメソッドについて
 // https://ja.javascript.info/array-methods
@@ -141,45 +108,43 @@ class BingoBallNumber {
   // ===== 画面に出力する関数 =====
   showReachBing() {
     // リーチ数
-    const totalReachNumber =
-      this.checkReachNum(col_B) +
-      this.checkReachNum(col_I) +
-      this.checkReachNum(col_N) +
-      this.checkReachNum(col_G) +
-      this.checkReachNum(col_O) +
-      this.checkReachNum(col_O1) +
-      this.checkReachNum(col_O2) +
-      this.checkReachNum(row_1) +
-      this.checkReachNum(row_2) +
-      this.checkReachNum(row_3) +
-      this.checkReachNum(row_4) +
-      this.checkReachNum(row_5) +
-      this.checkReachNum(row_6) +
-      this.checkReachNum(row_7) +
-      this.checkReachNum(cross1) +
-      this.checkReachNum(cross2);
-
+    // const totalReachNumber =
+    //   this.checkReachNum(col_B) +
+    //   this.checkReachNum(col_I) +
+    //   this.checkReachNum(col_N) +
+    //   this.checkReachNum(col_G) +
+    //   this.checkReachNum(col_O) +
+    //   this.checkReachNum(col_O1) +
+    //   this.checkReachNum(col_O2) +
+    //   this.checkReachNum(row_1) +
+    //   this.checkReachNum(row_2) +
+    //   this.checkReachNum(row_3) +
+    //   this.checkReachNum(row_4) +
+    //   this.checkReachNum(row_5) +
+    //   this.checkReachNum(row_6) +
+    //   this.checkReachNum(row_7) +
+    //   this.checkReachNum(cross1) +
+    //   this.checkReachNum(cross2);
     // ビンゴ数
-    const totalBingoNumber =
-      this.checkBingoNum(col_B) +
-      this.checkBingoNum(col_I) +
-      this.checkBingoNum(col_N) +
-      this.checkBingoNum(col_G) +
-      this.checkBingoNum(col_O) +
-      this.checkBingoNum(col_O1) +
-      this.checkBingoNum(col_O2) +
-      this.checkBingoNum(row_1) +
-      this.checkBingoNum(row_2) +
-      this.checkBingoNum(row_3) +
-      this.checkBingoNum(row_4) +
-      this.checkBingoNum(row_5) +
-      this.checkBingoNum(row_6) +
-      this.checkBingoNum(row_7) +
-      this.checkBingoNum(cross1) +
-      this.checkBingoNum(cross2);
-
-    reachNum.innerHTML = totalReachNumber;
-    bingoNum.innerHTML = totalBingoNumber;
+    // const totalBingoNumber =
+    //   this.checkBingoNum(col_B) +
+    //   this.checkBingoNum(col_I) +
+    //   this.checkBingoNum(col_N) +
+    //   this.checkBingoNum(col_G) +
+    //   this.checkBingoNum(col_O) +
+    //   this.checkBingoNum(col_O1) +
+    //   this.checkBingoNum(col_O2) +
+    //   this.checkBingoNum(row_1) +
+    //   this.checkBingoNum(row_2) +
+    //   this.checkBingoNum(row_3) +
+    //   this.checkBingoNum(row_4) +
+    //   this.checkBingoNum(row_5) +
+    //   this.checkBingoNum(row_6) +
+    //   this.checkBingoNum(row_7) +
+    //   this.checkBingoNum(cross1) +
+    //   this.checkBingoNum(cross2);
+    // reachNum.innerHTML = totalReachNumber;
+    // bingoNum.innerHTML = totalBingoNumber;
   }
 }
 
@@ -188,59 +153,70 @@ class BingoBallNumber {
 // ==============================================================
 class BingoCard {
   constructor() {
-    // ビンゴカードの数字を格納する配列
     this.cardNumArray = [];
 
+    // ビンゴカードの数字を格納する配列
     // 入力した値の列×列の、二次元配列
     this.col_row_Array = new Array();
   }
 
   // =========== ビンゴカードの数字を作成する関数 ===========
-  makeRandomNum(plus, col) {
-    // 1〜15を持った長さ15の配列の作成
-    const array = [];
-    for (let i = 1; i <= 15; i++) {
-      array.push(i);
-    }
-
+  makeRandomNum(col) {
     for (let i = 0; i < col; i++) {
-      // ランダムな値を取得
-      const randomNum = Math.floor(Math.random() * array.length);
-      this.cardNumArray.push(array[randomNum] + plus);
-      // 数字が重複しないよう、元の配列から削除
-      array.splice(randomNum, 1);
+      // 1〜15を持った長さ15の配列の作成
+      const array = [];
+      for (let k = 1; k <= 15; k++) {
+        array.push(k);
+      }
+
+      for (let j = 0; j < col; j++) {
+        // ランダムな値を取得
+        const randomNum = Math.floor(Math.random() * array.length);
+        this.col_row_Array[i].push(array[randomNum] + i * 15);
+
+        // 数字が重複しないよう、元の配列から削除
+        array.splice(randomNum, 1);
+      }
     }
   }
 
   // =========== 上で作成した数字を出力する関数 ============
   makeBingoCard(col) {
-    console.log(this.col_row_Array);
+    // col x col列のビンゴカードの二次元配列作成（例：5列x5列）
     for (let i = 0; i < col; i++) {
-      this.col_row_Array[i] = new Array(col);
-      console.log(this.col_row_Array);
+      this.col_row_Array[i] = new Array();
     }
 
-    for (let i = 0; i < col; i++) {
-      for (let k = 0; k < col; k++) {
-        this.col_row_Array[i][k] = i * k;
-      }
-    }
-    console.table(this.col_row_Array);
+    // 上の関数を発動
+    this.makeRandomNum(col);
 
-    // カードの各列に入るランダムな数字を作る
-    for (let i = 0; i < col; i++) {
-      this.makeRandomNum(i * 15, col);
-    }
+    const centerNum = Math.floor(col / 2);
 
     // 数字を画面に出力
-    col_BINGO.map((el, i) => {
-      el.innerHTML = this.cardNumArray[i];
-    });
+    for (let i = 0; i < col; i++) {
+      const col_div = document.createElement("div");
 
+      this.col_row_Array[i].map((el, index) => {
+        const P_Tag = document.createElement("p");
+
+        // 中心を'free'にするための処理
+        if (i === centerNum && index === centerNum) {
+          el = "free";
+          P_Tag.append(el);
+        } else {
+          // 中心以外の処理
+          P_Tag.append(el);
+        }
+        col_div.append(P_Tag);
+      });
+
+      bingoCard_div.append(col_div);
+    }
+
+    // ビンゴカードの中心の値を'free'に変更しておく
+    this.col_row_Array[centerNum][centerNum] = "free";
     // 中央は常に'free'、穴が空いている(=true)状態
-    const centerNum = Math.floor(col / 2);
-    col_G[centerNum].innerHTML = "free";
-    col_G[centerNum].ariaChecked = "true";
+    // this.col_row_Array[centerNum][centerNum].ariaChecked = "true";
   }
 }
 
@@ -254,11 +230,12 @@ createBtn.addEventListener("click", () => {
   // 列数の値（5〜13のどれか）を変数に格納して、makeBingoCardの引数に挿入
   const col_row_num = inputNum.valueAsNumber;
 
-  bingoCard.makeBingoCard(7);
+  bingoCard.makeBingoCard(col_row_num);
 
   form.classList.add("hide");
   createBtn.classList.add("hide");
   ballBtn.classList.remove("hide");
+  number_div.classList.remove("hide");
 });
 
 // ========= ビンゴボールを引く（数字を表示する）ボタン =========

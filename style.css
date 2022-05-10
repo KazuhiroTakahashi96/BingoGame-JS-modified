@@ -18,25 +18,9 @@ header {
   display: flex;
   justify-content: space-evenly;
 }
-.table-div {
-  width: 30vw;
-  margin: 0 30px;
-}
-table {
-  width: 80%;
-  height: 300px;
-  font-size: 20px;
-}
-
-th {
-  padding-bottom: 5px;
-}
-td {
-  padding: 15px;
-}
 
 span {
-  font-size: 25px;
+  font-size: 20px;
   font-weight: bold;
 }
 
@@ -49,7 +33,7 @@ span {
 }
 
 .btn {
-  margin-top: 40px;
+  margin: 40px;
 }
 .btn > input {
   width: 100px;
@@ -61,9 +45,28 @@ span {
 }
 #col_Num {
   text-align: center;
-  font-size: 15px;
+  font-size: 20px;
 }
 
+.bingoCard-div {
+  margin: 0 20px;
+}
+
+.bingoCard-num {
+  display: flex;
+  margin: 0 20px;
+}
+.bingoCard-num > div {
+  display: flex;
+  flex-direction: column;
+  margin: 0 15px;
+}
+.bingoCard-num > div > p {
+  margin: 10px;
+}
+
+/*  */
+/*  */
 [aria-checked="true"] {
   background-color: gold;
   border-radius: 20px 20px 0 0;
