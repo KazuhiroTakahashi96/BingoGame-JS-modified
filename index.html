@@ -9,27 +9,25 @@
   </head>
   <body>
     <header>BINGO GAME</header>
-    <!-- aria-checkedについて -->
-    <!-- https://developer.mozilla.org/ja/docs/Web/Accessibility/ARIA/Roles/checkbox_role -->
 
     <div class="btn">
       <input type="button" id="create-btn" value="カード作成" />
       <form action="" id="form">
-        <label for="col_Num">ビンゴの列数(5〜13)を選択してください</label>
-        <input
-          type="number"
-          name=""
-          id="col_Num"
-          value="5"
-          min="5"
-          max="13"
-          step="2"
-        />
+        <label for="bingo_option">ビンゴの列数を選択してください</label>
+        <select name="bingo_option" id="bingo_option">
+          <option value="5">5列×5列</option>
+          <option value="7">7列×7列</option>
+          <option value="9">9列×9列</option>
+          <option value="11">11列×11列</option>
+          <option value="13">13列×13列</option>
+        </select>
       </form>
       <input type="button" id="ball-btn" class="hide" value="ボールを引く" />
+      <p id="end"></p>
     </div>
 
     <div class="container">
+      <!-- ビンゴカードはここにjsで記述する -->
       <div class="bingoCard-div">
         <div class="bingoCard-num"></div>
       </div>

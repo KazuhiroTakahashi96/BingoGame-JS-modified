@@ -3,13 +3,14 @@ const reachNum = document.querySelector("#reach-num");
 const bingoNum = document.querySelector("#bingo-num");
 const ballNum = document.querySelector("#ball-num");
 const span = document.querySelector("span");
+const end = document.querySelector("#end");
 
 // ボタン取得
 const createBtn = document.querySelector("#create-btn");
 const ballBtn = document.querySelector("#ball-btn");
 
 // 列数の値を取得
-const inputNum = document.querySelector("#col_Num");
+const bingo_option = document.querySelector("#bingo_option");
 
 // form要素の取得
 const form = document.querySelector("#form");
@@ -72,9 +73,9 @@ class BingoCard {
     // 上の関数を発動
     this.makeRandomNum(col);
 
-    const centerNum = Math.floor(col / 2);
+    const centerNum = (col - 1) / 2;
 
-    // 数字を画面に出力
+    // 数字を画面に出力する処理
     for (let i = 0; i < col; i++) {
       // divタグ作成
       const col_div = document.createElement("div");
@@ -114,12 +115,6 @@ class BingoCard {
 // ==============================================================
 class BingoBallNumber {
   constructor() {
-    // // 1〜最大195（13列）の値を持つ配列の作成
-    // this.bingoBallArray = [];
-    // for (let i = 1; i <= col_row_num * 15; i++) {
-    //   this.bingoBallArray.push(i);
-    // }
-
     // 出たビンゴボールの数字を格納していく配列の作成
     this.ballNumArray = [];
 
@@ -133,7 +128,7 @@ class BingoBallNumber {
     span.innerHTML = this.ball;
     this.ball += 1;
 
-    // 0〜最大195の中で、ランダムな値を取得
+    // 0〜最大194の中で、ランダムな値を取得
     const randomNum = Math.floor(
       Math.random() * bingoCard.bingoBallArray.length
     );
@@ -142,12 +137,10 @@ class BingoBallNumber {
     bingoCard.bingoBallArray.splice(randomNum, 1);
 
     // 画面に数字を表示
-    if (bingoCard.bingoBallArray.length == 0) {
+    if (bingoCard.bingoBallArray.length === 0) {
       ballNum.innerHTML = this.ballNumArray[0];
       ballBtn.classList.add("hide");
-      setTimeout(() => {
-        // end.innerHTML = "終了";
-      }, 1000);
+      end.innerHTML = "終了";
     } else {
       ballNum.innerHTML = this.ballNumArray[0];
     }
@@ -306,12 +299,12 @@ class BingoBallNumber {
     let totalBingoNumber = 0;
     for (let i = 0; i < bingoCard.cardNumArray_html.length; i++) {
       // 縦列のチェック
-      totalReachNumber += this.checkColBingoNum(bingoCard.cardNumArray_html[i]);
+      totalBingoNumber += this.checkColBingoNum(bingoCard.cardNumArray_html[i]);
     }
     // 横列のチェック
     totalBingoNumber += this.checkRowBingoNum(bingoCard.cardNumArray_html);
     // 斜め列のチェック
-    totalReachNumber += this.checkCrossBingoNum(bingoCard.cardNumArray_html);
+    totalBingoNumber += this.checkCrossBingoNum(bingoCard.cardNumArray_html);
 
     reachNum.innerHTML = totalReachNumber;
     bingoNum.innerHTML = totalBingoNumber;
@@ -325,10 +318,11 @@ const bingoBallNumber = new BingoBallNumber();
 //======================== クリックイベント ========================
 // ========= ビンゴカード作成ボタン =========
 createBtn.addEventListener("click", () => {
-  // 列数の値（5〜13のどれか）を変数に格納して、makeBingoCardの引数に挿入
-  let col_row_num = inputNum.valueAsNumber;
+  // 列数の値（5〜13のどれか）を変数に格納
+  const bingo_col_num = bingo_option.value;
 
-  bingoCard.makeBingoCard(col_row_num);
+  // bingo_col_num　は、厳密には文字列なので数値に変換して引数として挿入
+  bingoCard.makeBingoCard(Number(bingo_col_num));
 
   form.classList.add("hide");
   createBtn.classList.add("hide");
