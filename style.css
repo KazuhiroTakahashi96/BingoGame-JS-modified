@@ -28,7 +28,7 @@ span {
 #bingo-num,
 #ball-num,
 #end {
-  font-size: 30px;
+  font-size: 25px;
   font-weight: bold;
 }
 
@@ -62,16 +62,19 @@ span {
 .bingoCard-num > div {
   display: flex;
   flex-direction: column;
-  margin: 0 15px;
+  margin: 0 10px;
 }
 .bingoCard-num > div > p {
-  margin: 10px;
+  margin: 5px;
+  padding: 5px;
+  font-size: 20px;
 }
 
 /*  */
 /*  */
 .matchedNum {
   background-color: gold;
+  border-radius: 15px 15px 0 0;
 }
 /*  */
 /*  */
