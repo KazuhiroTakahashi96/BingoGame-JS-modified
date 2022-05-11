@@ -26,15 +26,14 @@ const number_div = document.querySelector(".number-div");
 // ==============================================================
 class BingoCard {
   constructor() {
-    // ビンゴカードの数字を格納する配列
-    // 入力した値の列×列の、二次元配列
+    // ビンゴカードの数字を格納する配列。二次元配列にする
     this.col_row_Array = new Array();
 
-    // 上の配列と似ているが、こちらはhtml要素として
+    // 上の配列と同じで二次元配列だが、こちらはhtml要素として
     // 取得したものを格納する二次元配列
     this.cardNumArray_html = new Array();
 
-    // 1〜最大195（13列）の値を持つ配列の作成
+    // 1〜最大195（13列の時）の値が入る配列
     this.bingoBallArray = [];
   }
 
@@ -60,7 +59,7 @@ class BingoCard {
 
   // =========== 上で作成した数字を出力する関数 ============
   makeBingoCard(col) {
-    // col x col列のビンゴカードの二次元配列作成（例：5列x5列）
+    // col x col列のビンゴカードの二次元配列作成。中身はまだ空
     for (let i = 0; i < col; i++) {
       this.col_row_Array[i] = new Array();
       this.cardNumArray_html[i] = new Array();
@@ -70,18 +69,20 @@ class BingoCard {
       this.bingoBallArray.push(i);
     }
 
-    // 上の関数を発動
+    // makeRandomNum関数を発動
     this.makeRandomNum(col);
+
+    console.table(this.col_row_Array);
 
     const centerNum = (col - 1) / 2;
 
     // 数字を画面に出力する処理
     for (let i = 0; i < col; i++) {
-      // divタグ作成
+      // 1列分の数字を格納するdivタグ作成
       const col_div = document.createElement("div");
 
       this.col_row_Array[i].map((el, index) => {
-        // pタグ作成
+        // 各数字を格納するpタグ作成
         const P_Tag = document.createElement("p");
 
         // 中心を'free'にするための処理
@@ -90,8 +91,9 @@ class BingoCard {
           P_Tag.append(el);
           // 穴を開ける処理（背景色を変更）
           P_Tag.classList.add("matchedNum");
-        } else {
+
           // 中心以外の処理
+        } else {
           P_Tag.append(el);
         }
 
@@ -168,6 +170,7 @@ class BingoBallNumber {
   // ========== リーチ数、ビンゴ数をチェック、出力する関数 ============
   // ===== 縦列のリーチ数、ビンゴ数をチェックする関数 =====
   col__ReachBingo_Num(array, minus) {
+    // html要素の二次元配列の各配列を引数に持ってくる
     let col__reachBingo_Num = 0;
     for (let i = 0; i < bingoCard.cardNumArray_html.length; i++) {
       // true(穴が空いてる)なら
@@ -182,7 +185,7 @@ class BingoBallNumber {
 
   // ===== 横列のリーチ数、ビンゴ数をチェックする関数 =====
   row__ReachBingo_Num(array, minus) {
-    // html要素の二次元配列を引数に持ってくる
+    // html要素の二次元配列そのものを引数に持ってくる
     let totalRow_ReachBingo_Num = 0;
 
     for (let j = 0; j < array.length; j++) {
@@ -203,7 +206,7 @@ class BingoBallNumber {
 
   // ===== 斜め列のリーチ数、ビンゴ数をチェックする関数 =====
   cross__ReachBingo_Num(array, minus) {
-    // html要素の二次元配列を引数に持ってくる
+    // html要素の二次元配列そのものを引数に持ってくる
     let totalCross_ReachBingo_Num = 0;
 
     // 斜め列1(左上から右下)のリーチ数、ビンゴ数
@@ -235,7 +238,7 @@ class BingoBallNumber {
 
   // ===== 画面に出力する関数 =====
   showReachBing() {
-    // リーチ数
+    // ==== リーチ数 =====
     let totalReachNumber = 0;
     for (let i = 0; i < bingoCard.cardNumArray_html.length; i++) {
       // 縦列のチェック
@@ -255,7 +258,7 @@ class BingoBallNumber {
       1
     );
 
-    // ビンゴ数
+    // ==== ビンゴ数 ====
     let totalBingoNumber = 0;
     for (let i = 0; i < bingoCard.cardNumArray_html.length; i++) {
       // 縦列のチェック
