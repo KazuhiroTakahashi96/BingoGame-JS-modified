@@ -199,7 +199,7 @@ class BingoBallNumber {
       }
       reachBingo_Num === array.length - minus
         ? (totalRow_ReachBingo_Num += 1)
-        : totalRow_ReachBingo_Num;
+        : 0;
     }
     return totalRow_ReachBingo_Num;
   }
@@ -219,7 +219,7 @@ class BingoBallNumber {
     }
     reachBingo_Num1 === array.length - minus
       ? (totalCross_ReachBingo_Num += 1)
-      : totalCross_ReachBingo_Num;
+      : 0;
 
     // 斜め列2(左下から右上)のリーチ数、ビンゴ数
     let reachBingo_Num2 = 0;
@@ -231,7 +231,7 @@ class BingoBallNumber {
     }
     reachBingo_Num2 === array.length - minus
       ? (totalCross_ReachBingo_Num += 1)
-      : totalCross_ReachBingo_Num;
+      : 0;
 
     return totalCross_ReachBingo_Num;
   }
