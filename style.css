@@ -19,11 +19,7 @@ header {
   justify-content: space-evenly;
 }
 
-span {
-  font-size: 20px;
-  font-weight: bold;
-}
-
+span,
 #reach-num,
 #bingo-num,
 #ball-num,
@@ -54,17 +50,14 @@ span {
 /*  */
 .bingoCard-div {
   margin: 0 20px 40px;
-}
-
-.bingoCard-num {
   display: flex;
 }
-.bingoCard-num > div {
+.bingoCard-div > div {
   display: flex;
   flex-direction: column;
   margin: 0 10px;
 }
-.bingoCard-num > div > p {
+.bingoCard-div > div > p {
   margin: 5px;
   padding: 5px;
   font-size: 20px;

@@ -16,7 +16,7 @@ const bingo_option = document.querySelector("#bingo_option");
 const form = document.querySelector("#form");
 
 // ビンゴカードを表示する要素の取得
-const bingoCard_div = document.querySelector(".bingoCard-num");
+const bingoCard_div = document.querySelector(".bingoCard-div");
 
 // 引いた数字やリーチ数などを表示するdiv
 const number_div = document.querySelector(".number-div");
@@ -81,20 +81,20 @@ class BingoCard {
       // 1列分の数字を格納するdivタグ作成
       const col_div = document.createElement("div");
 
-      this.col_row_Array[i].map((el, index) => {
+      this.col_row_Array[i].map((num, index) => {
         // 各数字を格納するpタグ作成
         const P_Tag = document.createElement("p");
 
         // 中心を'free'にするための処理
         if (i === centerNum && index === centerNum) {
-          el = "free";
-          P_Tag.append(el);
+          num = "free";
+          P_Tag.append(num);
           // 穴を開ける処理（背景色を変更）
           P_Tag.classList.add("matchedNum");
 
           // 中心以外の処理
         } else {
-          P_Tag.append(el);
+          P_Tag.append(num);
         }
 
         // pタグ（カードの数字）をdivタグ配下に挿入
@@ -240,39 +240,39 @@ class BingoBallNumber {
   showReachBing() {
     // ==== リーチ数 =====
     let totalReachNumber = 0;
+    // ==== ビンゴ数 ====
+    let totalBingoNumber = 0;
+
     for (let i = 0; i < bingoCard.cardNumArray_html.length; i++) {
-      // 縦列のチェック
+      // 縦列のチェック（リーチ数）
       totalReachNumber += this.col__ReachBingo_Num(
         bingoCard.cardNumArray_html[i],
         1
       );
-    }
-    // 横列のチェック
-    totalReachNumber += this.row__ReachBingo_Num(
-      bingoCard.cardNumArray_html,
-      1
-    );
-    // 斜め列のチェック
-    totalReachNumber += this.cross__ReachBingo_Num(
-      bingoCard.cardNumArray_html,
-      1
-    );
-
-    // ==== ビンゴ数 ====
-    let totalBingoNumber = 0;
-    for (let i = 0; i < bingoCard.cardNumArray_html.length; i++) {
-      // 縦列のチェック
+      // 縦列のチェック（ビンゴ数）
       totalBingoNumber += this.col__ReachBingo_Num(
         bingoCard.cardNumArray_html[i],
         0
       );
     }
-    // 横列のチェック
+
+    // 横列のチェック（リーチ数）
+    totalReachNumber += this.row__ReachBingo_Num(
+      bingoCard.cardNumArray_html,
+      1
+    );
+    // 横列のチェック（ビンゴ数）
     totalBingoNumber += this.row__ReachBingo_Num(
       bingoCard.cardNumArray_html,
       0
     );
-    // 斜め列のチェック
+
+    // 斜め列のチェック（リーチ数）
+    totalReachNumber += this.cross__ReachBingo_Num(
+      bingoCard.cardNumArray_html,
+      1
+    );
+    // 斜め列のチェック（ビンゴ数）
     totalBingoNumber += this.cross__ReachBingo_Num(
       bingoCard.cardNumArray_html,
       0
